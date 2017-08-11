@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Translator"
+             xmlns:customs="clr-namespace:Translator.CustomElements"             
+             x:Class="Translator.MainPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="ElementsColor">#146ac1</Color>
+            <OnPlatform x:Key="HeaderHeight" x:TypeArguments="x:Double" iOS="60" Android="40" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{StaticResource HeaderHeight}" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+
+            <StackLayout BackgroundColor="{StaticResource ElementsColor}">
+                <StackLayout.Padding>
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <OnPlatform.iOS>
+                            <Thickness Left="0" Top="30" Right="0" Bottom="0" />
+                        </OnPlatform.iOS>
+                        <OnPlatform.Android>
+                            <Thickness Left="0" Top="0" Right="0" Bottom="0" />
+                        </OnPlatform.Android>
+                    </OnPlatform>
+                </StackLayout.Padding>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <customs:CustomPicker x:Name="langFrom"
+                                          Grid.Row="0" Grid.Column="0"
+                                          TextColor="White"
+                                          BackgroundColor="{StaticResource ElementsColor}"
+                                          VerticalOptions="Center"
+                                          HorizontalOptions="FillAndExpand" />
+                    <Image Source="replace.png" 
+                           Grid.Row="0" Grid.Column="1"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="OnTapReplaceLanguage"
+                                NumberOfTapsRequired="1" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <customs:CustomPicker x:Name="langTo"
+                                          Grid.Row="0" Grid.Column="2"
+                                          TextColor="White"
+                                          BackgroundColor="{StaticResource ElementsColor}"
+                                          VerticalOptions="Center"
+                                          HorizontalOptions="FillAndExpand" />
+                </Grid>                
+            </StackLayout>
+
+            <StackLayout Grid.Row="1"
+                         Padding="5">
+                <Image Source="clear.png" 
+                       HorizontalOptions="End"
+                       VerticalOptions="Start"
+                       Margin="0,0,10,0">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="OnTapClearOriginalText"
+                            NumberOfTapsRequired="1" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <customs:CustomEditor x:Name="original"  
+                                      VerticalOptions="FillAndExpand"
+                                      HorizontalOptions="FillAndExpand"
+                                      Completed="Editor_originalTextCompleted"
+                                      Placeholder="Введите текст для перевода" />
+            </StackLayout>
+            <StackLayout Grid.Row="2"
+                         HeightRequest="300"
+                         Padding="5">
+                <customs:CustomEditor x:Name="translaion"   
+                                      VerticalOptions="FillAndExpand"
+                                      HorizontalOptions="FillAndExpand" 
+                                      IsReadOnly="True" />
+                <Image Source="copy.png" 
+                       HorizontalOptions="Start"
+                       VerticalOptions="Start"
+                       Margin="20,0,0,0">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="OnTapCopyTranslationText"
+                            NumberOfTapsRequired="1" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </StackLayout>            
+            <Button Grid.Row="3"
+                    x:Name="translate" 
+                    BackgroundColor="{StaticResource ElementsColor}"
+                    Text="Перевести"
+                    TextColor="White"
+                    BorderRadius="0"
+                    Clicked="Button_TranslateButtonClick" />
+        </Grid>
+    </StackLayout>
+</ContentPage>
