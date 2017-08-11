@@ -3,9 +3,9 @@ using Translator.CustomElements;
 using Translator.iOS.Renderers;
 using Xamarin.Forms.Platform.iOS;
 using System.ComponentModel;
-using Foundation;
-using ObjCRuntime;
 using UIKit;
+using CoreAnimation;
+using CoreGraphics;
 
 [assembly: ExportRenderer(typeof(CustomEditor), typeof(CustomEditorRenderer))]
 namespace Translator.iOS.Renderers
@@ -21,31 +21,7 @@ namespace Translator.iOS.Renderers
             if (Element != null)
             {
                 var element = Element as CustomEditor;
-                Placeholder = element.Placeholder;
-                Control.TextColor = UIColor.LightGray;  // Цвет плейсхолдера
-                Control.Text = Placeholder;             
-
-                Control.ShouldBeginEditing += (UITextView textView) =>  // Если элемент получил фокус ввода
-                {
-                    if (textView.Text == Placeholder)       // Если текст в поле ввода = плейсхолдеру
-                    {   
-                        textView.Text = "";                 // Очищаем текст
-                        textView.TextColor = UIColor.Black; // Устанавливаем цвет текста 
-                    }
-
-                    return true;
-                };
-
-                Control.ShouldEndEditing += (UITextView textView) =>    // Если с элемента снят фокус
-                {
-                    if (textView.Text == "")                    // Если поле пусто
-                    {
-                        textView.Text = Placeholder;            // Выводим плейсхолдер
-                        textView.TextColor = UIColor.LightGray; // Устанавливаем цвет плейсхолдера
-                    }
-
-                    return true;
-                };
+                SetPlaceholder(element);
 
                 if (element.IsReadOnly)
                 {
@@ -53,6 +29,35 @@ namespace Translator.iOS.Renderers
                     Control.TextColor = UIColor.Black;
                 }
             }
+        }
+
+        private void SetPlaceholder(CustomEditor element)
+        {
+            Placeholder = element.Placeholder;
+            Control.TextColor = UIColor.LightGray;  // Цвет плейсхолдера
+            Control.Text = Placeholder;
+
+            Control.ShouldBeginEditing += (UITextView textView) =>  // Если элемент получил фокус ввода
+            {
+                if (textView.Text == Placeholder)       // Если текст в поле ввода = плейсхолдеру
+                {
+                    textView.Text = "";                 // Очищаем текст
+                    textView.TextColor = UIColor.Black; // Устанавливаем цвет текста 
+                }
+
+                return true;
+            };
+
+            Control.ShouldEndEditing += (UITextView textView) =>    // Если с элемента снят фокус
+            {
+                if (textView.Text == "")                    // Если поле пусто
+                {
+                    textView.Text = Placeholder;            // Выводим плейсхолдер
+                    textView.TextColor = UIColor.LightGray; // Устанавливаем цвет плейсхолдера
+                }
+
+                return true;
+            };
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)

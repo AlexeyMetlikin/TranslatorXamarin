@@ -14,8 +14,7 @@ namespace Translator
             object key = CrossSettings.Current.GetValueOrDefault("API_Key", "");
             if (String.IsNullOrEmpty(key.ToString()))
             {
-                Current.Properties.TryGetValue("API_Key", out key);
-                CrossSettings.Current.AddOrUpdateValue("API_Key", key.ToString());
+                CrossSettings.Current.AddOrUpdateValue("API_Key", Translator.Properties.Resources.API_Key);
             }
 
             MainPage = new MainPage(new TranslatorApi("https://translate.yandex.net", CrossSettings.Current.GetValueOrDefault("API_Key", "")));

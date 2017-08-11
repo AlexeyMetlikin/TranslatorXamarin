@@ -8,6 +8,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="ElementsColor">#146ac1</Color>
+            <Color x:Key="EditorColor">#fafbfc</Color>
             <OnPlatform x:Key="HeaderHeight" x:TypeArguments="x:Double" iOS="60" Android="40" />
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -79,7 +80,8 @@
                                       VerticalOptions="FillAndExpand"
                                       HorizontalOptions="FillAndExpand"
                                       Completed="Editor_originalTextCompleted"
-                                      Placeholder="Введите текст для перевода" />
+                                      Placeholder="Введите текст для перевода" 
+                                      BackgroundColor="{StaticResource EditorColor}" />
             </StackLayout>
             <StackLayout Grid.Row="2"
                          HeightRequest="300"
@@ -87,7 +89,8 @@
                 <customs:CustomEditor x:Name="translaion"   
                                       VerticalOptions="FillAndExpand"
                                       HorizontalOptions="FillAndExpand" 
-                                      IsReadOnly="True" />
+                                      IsReadOnly="True" 
+                                      BackgroundColor="{StaticResource EditorColor}" />
                 <Image Source="copy.png" 
                        HorizontalOptions="Start"
                        VerticalOptions="Start"
